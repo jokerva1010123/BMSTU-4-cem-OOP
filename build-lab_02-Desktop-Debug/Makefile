@@ -52,11 +52,15 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../lab_02/BaseIterator.cpp \
+SOURCES       = ../lab_02/BaseException.cpp \
+		../lab_02/BaseIterator.cpp \
 		../lab_02/BaseVector.cpp \
+		../lab_02/Iterator.cpp \
 		../lab_02/main.cpp 
-OBJECTS       = BaseIterator.o \
+OBJECTS       = BaseException.o \
+		BaseIterator.o \
 		BaseVector.o \
+		Iterator.o \
 		main.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -132,9 +136,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../lab_02/lab_02.pro ../lab_02/BaseIterator.h \
-		../lab_02/BaseVector.h ../lab_02/BaseIterator.cpp \
+		../lab_02/lab_02.pro ../lab_02/BaseException.h \
+		../lab_02/BaseIterator.h \
+		../lab_02/BaseVector.h \
+		../lab_02/Exception.h \
+		../lab_02/Iterator.h ../lab_02/BaseException.cpp \
+		../lab_02/BaseIterator.cpp \
 		../lab_02/BaseVector.cpp \
+		../lab_02/Iterator.cpp \
 		../lab_02/main.cpp
 QMAKE_TARGET  = lab_02
 DESTDIR       = 
@@ -313,8 +322,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../lab_02/BaseIterator.h ../lab_02/BaseVector.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../lab_02/BaseIterator.cpp ../lab_02/BaseVector.cpp ../lab_02/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../lab_02/BaseException.h ../lab_02/BaseIterator.h ../lab_02/BaseVector.h ../lab_02/Exception.h ../lab_02/Iterator.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../lab_02/BaseException.cpp ../lab_02/BaseIterator.cpp ../lab_02/BaseVector.cpp ../lab_02/Iterator.cpp ../lab_02/main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -362,13 +371,23 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
+BaseException.o: ../lab_02/BaseException.cpp ../lab_02/BaseException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BaseException.o ../lab_02/BaseException.cpp
+
 BaseIterator.o: ../lab_02/BaseIterator.cpp ../lab_02/BaseIterator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BaseIterator.o ../lab_02/BaseIterator.cpp
 
 BaseVector.o: ../lab_02/BaseVector.cpp ../lab_02/BaseVector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BaseVector.o ../lab_02/BaseVector.cpp
 
-main.o: ../lab_02/main.cpp 
+Iterator.o: ../lab_02/Iterator.cpp ../lab_02/Iterator.h \
+		../lab_02/Exception.h \
+		../lab_02/BaseException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Iterator.o ../lab_02/Iterator.cpp
+
+main.o: ../lab_02/main.cpp ../lab_02/BaseIterator.h \
+		../lab_02/BaseVector.h \
+		../lab_02/BaseException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../lab_02/main.cpp
 
 ####### Install

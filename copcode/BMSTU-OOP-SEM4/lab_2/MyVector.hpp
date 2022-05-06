@@ -905,7 +905,7 @@ std::ostream &operator<<(std::ostream &os, const MyVector<Type> &vector)
     ConstIterator<Type> iterator = vector.begin();
     if (!iterator)
     {
-        os << "Empty mVector";
+        os << "Empty Vector";
         return os;
     }
 

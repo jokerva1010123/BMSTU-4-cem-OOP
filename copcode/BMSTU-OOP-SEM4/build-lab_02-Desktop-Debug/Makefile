@@ -52,9 +52,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../lab_2/main.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
-		moc_mainwindow.o
+SOURCES       = ../lab_2/main.cpp 
+OBJECTS       = main.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -139,10 +138,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../lab_2/Exceptions.h \
 		../lab_2/Iterator.h \
 		../lab_2/Iterator.hpp \
-		MyVector.h \
-		MyVector.hpp \
-		../lab_2/defines.h \
-		../lab_2/mainwindow.h ../lab_2/main.cpp
+		../lab_2/MyVector.h \
+		../lab_2/MyVector.hpp \
+		../lab_2/defines.h ../lab_2/main.cpp
 QMAKE_TARGET  = lab_02
 DESTDIR       = 
 TARGET        = lab_02
@@ -324,7 +322,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../lab_2/BaseException.h ../lab_2/BaseException.hpp ../lab_2/BaseVector.h ../lab_2/ConstIterator.h ../lab_2/ConstIterator.hpp ../lab_2/Exceptions.h ../lab_2/Iterator.h ../lab_2/Iterator.hpp MyVector.h MyVector.hpp ../lab_2/defines.h ../lab_2/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../lab_2/BaseException.h ../lab_2/BaseException.hpp ../lab_2/BaseVector.h ../lab_2/ConstIterator.h ../lab_2/ConstIterator.hpp ../lab_2/Exceptions.h ../lab_2/Iterator.h ../lab_2/Iterator.hpp ../lab_2/MyVector.h ../lab_2/MyVector.hpp ../lab_2/defines.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../lab_2/main.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../lab_2/mainwindow.ui $(DISTDIR)/
 
@@ -358,14 +356,8 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all:
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../lab_2/mainwindow.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/vanh/Desktop/github/BMSTU-4-cem-OOP/copcode/BMSTU-OOP-SEM4/build-lab_02-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/vanh/Desktop/github/BMSTU-4-cem-OOP/copcode/BMSTU-OOP-SEM4/lab_2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../lab_2/mainwindow.h -o moc_mainwindow.cpp
-
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -383,15 +375,22 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_uic_clean 
 
 ####### Compile
 
-main.o: ../lab_2/main.cpp 
+main.o: ../lab_2/main.cpp ../lab_2/MyVector.h \
+		../lab_2/Iterator.h \
+		../lab_2/Exceptions.h \
+		../lab_2/BaseException.h \
+		../lab_2/BaseException.hpp \
+		../lab_2/Iterator.hpp \
+		../lab_2/ConstIterator.h \
+		../lab_2/ConstIterator.hpp \
+		../lab_2/BaseVector.h \
+		../lab_2/MyVector.hpp \
+		../lab_2/defines.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../lab_2/main.cpp
-
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 ####### Install
 

@@ -1,9 +1,7 @@
 #ifndef CONSTITERATOR_H
 #define CONSTITERATOR_H
 
-
 #include "Exceptions.h"
-
 #include <memory>
 #include <time.h>
 
@@ -15,14 +13,12 @@ class ConstIterator: public std::iterator<std::random_access_iterator_tag, int>
 {
     private:
         std::weak_ptr<Type[]> wPointer;
-
     protected:
         void check_not_expired(int line) const;
         void check_on_valid(int line) const;
         Type *get_pointer() const;
         size_t current_index = 0;
         size_t vector_size = 0;
-
     public:
         ConstIterator(const ConstIterator<Type> &iterator) noexcept;
         ConstIterator(const MyVector<Type> &vector) noexcept;

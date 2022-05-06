@@ -2,6 +2,7 @@
 #define DRAWER_H
 
 #include <QGraphicsScene>
+#include <memory>
 #include "../objects/point.h"
 #include "../Mathobj/pixel.h"
 
