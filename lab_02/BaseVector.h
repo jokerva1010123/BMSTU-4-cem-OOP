@@ -1,20 +1,22 @@
-#ifndef BASEVECTOR_H
-#define BASEVECTOR_H
+#ifndef BaseVector_h
+#define BaseVector_h
 
-#include<cstdlib>
+#include <time.h>
+
+template<typename Type> class Iterator;
 
 class BaseVector
 {
     public:
         BaseVector();
-        BaseVector(const size_t sizeValue);
+        BaseVector(const BaseVector&);
         ~BaseVector();
 
-        bool IsEmpty();
-        size_t GetSize();
+        bool is_empty() const;
+        int get_size() const;
 
     protected:
-        size_t size = 0;
+        int num_elem = 0;
 };
 
-#endif // BASEVECTOR_H
+#endif /* BaseVector_h */

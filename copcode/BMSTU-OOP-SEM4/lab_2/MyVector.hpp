@@ -36,30 +36,30 @@ Iterator<Type> MyVector<Type>::end() noexcept
 }
 
 template<typename Type>
-ConstIterator<Type> MyVector<Type>::begin() const noexcept
+Iterator<Type> MyVector<Type>::begin() const noexcept
 {
-    ConstIterator<Type> constIterator(*this);
+    Iterator<Type> constIterator(*this);
     return constIterator;
 }
 
 template<typename Type>
-ConstIterator<Type> MyVector<Type>::end() const noexcept
+Iterator<Type> MyVector<Type>::end() const noexcept
 {
-    ConstIterator<Type> constIterator(*this);
+    Iterator<Type> constIterator(*this);
     return constIterator + this->vector_size;
 }
 
 template<typename Type>
-ConstIterator<Type> MyVector<Type>::constBegin() const noexcept
+Iterator<Type> MyVector<Type>::constBegin() const noexcept
 {
-    ConstIterator<Type> constIterator(*this);
+    Iterator<Type> constIterator(*this);
     return constIterator;
 }
 
 template<typename Type>
-ConstIterator<Type> MyVector<Type>::constEnd() const noexcept
+Iterator<Type> MyVector<Type>::constEnd() const noexcept
 {
-    ConstIterator<Type> constIterator(*this);
+    Iterator<Type> constIterator(*this);
     return constIterator + this->vector_size;
 }
 
@@ -271,7 +271,7 @@ const Type &MyVector<Type>::operator[](size_t index) const
     if (index >= this->vector_size)
         throw OutOfRangeException(__FILE__, typeid(*this).name(), __LINE__, ctime(&currentTime));
 
-    ConstIterator<Type> iterator = this->begin();
+    Iterator<Type> iterator = this->begin();
     for (size_t i = 0; i < index; i++)
         iterator++;
     return *iterator;
@@ -297,8 +297,8 @@ bool MyVector<Type>::operator==(const MyVector<Type> &vector) const
         result = false;
     else
     {
-        ConstIterator<Type> first_iterator = this->begin();
-        ConstIterator<Type> second_iterator = vector.begin();
+        Iterator<Type> first_iterator = this->begin();
+        Iterator<Type> second_iterator = vector.begin();
         for (; first_iterator && result; second_iterator++)
         if (std::abs(*first_iterator - *second_iterator) < std::numeric_limits<Type>::epsilon()) // Конструктор гарантирует, что такой Eps есть
             result = false;
@@ -355,7 +355,7 @@ MyVector<Type> MyVector<Type>::sum_two_vectors(const MyVector<Type_2> &vector) c
 {
     MyVector<Type> result(*this);
     Iterator<Type> resultIterator = result.begin();
-    ConstIterator<Type_2> iterFrom = vector.begin();
+    Iterator<Type_2> iterFrom = vector.begin();
 
     for (; resultIterator; resultIterator++, iterFrom++)
         *resultIterator = *resultIterator + *iterFrom;
@@ -385,7 +385,7 @@ MyVector<Type> MyVector<Type>::sum_vector_and_elem(const Type_2 &element) const
         throw InvalidType(__FILE__, typeid(*this).name(), __LINE__, ctime(&current_time));
     MyVector<Type> result(*this);
 
-    ConstIterator<Type> iter_from = this->begin();
+    Iterator<Type> iter_from = this->begin();
     Iterator<Type> iter_to = result.begin();
 
     for (; iter_from; iter_from++, iter_to++)
@@ -447,7 +447,7 @@ MyVector<Type> MyVector<Type>::sub_two_vectors(const MyVector<Type_2> &vector) c
 {
     MyVector<Type> result(*this);
     Iterator<Type> resultIterator = result.begin();
-    ConstIterator<Type_2> iterFrom = vector.begin();
+    Iterator<Type_2> iterFrom = vector.begin();
 
     for (; resultIterator; resultIterator++, iterFrom++)
         *resultIterator = *resultIterator - *iterFrom;
@@ -477,7 +477,7 @@ MyVector<Type> MyVector<Type>::sub_vector_and_elem(const Type_2 &element) const
         throw InvalidType(__FILE__, typeid(*this).name(), __LINE__, ctime(&current_time));
     MyVector<Type> result(*this);
 
-    ConstIterator<Type> iter_from = this->begin();
+    Iterator<Type> iter_from = this->begin();
     Iterator<Type> iter_to = result.begin();
 
     for (; iter_from; iter_from++, iter_to++)
@@ -539,7 +539,7 @@ MyVector<Type> MyVector<Type>::mul_two_vectors(const MyVector<Type_2> &vector) c
 {
     MyVector<Type> result(*this);
     Iterator<Type> resultIterator = result.begin();
-    ConstIterator<Type> iterFrom = vector.begin();
+    Iterator<Type> iterFrom = vector.begin();
 
     for (; resultIterator; resultIterator++, iterFrom++)
         *resultIterator = *resultIterator * *iterFrom;
@@ -569,7 +569,7 @@ MyVector<Type> MyVector<Type>::mul_vector_and_elem(const Type_2 &element) const
         throw InvalidType(__FILE__, typeid(*this).name(), __LINE__, ctime(&current_time));
     MyVector<Type> result(*this);
 
-    ConstIterator<Type> iter_from = this->begin();
+    Iterator<Type> iter_from = this->begin();
     Iterator<Type> iter_to = result.begin();
 
     for (; iter_from; iter_from++, iter_to++)
@@ -631,7 +631,7 @@ MyVector<Type> MyVector<Type>::div_two_vectors(const MyVector<Type_2> &vector) c
 {
     MyVector<Type> result(*this);
     Iterator<Type> resultIterator = result.begin();
-    ConstIterator<Type> iterFrom = vector.begin();
+    Iterator<Type> iterFrom = vector.begin();
 
     for (; resultIterator; resultIterator++, iterFrom++)
         *resultIterator = *resultIterator / *iterFrom;
@@ -663,7 +663,7 @@ MyVector<Type> MyVector<Type>::div_vector_and_elem(const Type_2 &element) const
         throw ZeroDivisionException(__FILE__, typeid(*this).name(), __LINE__, ctime(&current_time));
     MyVector<Type> result(*this);
 
-    ConstIterator<Type> iter_from = this->begin();
+    Iterator<Type> iter_from = this->begin();
     Iterator<Type> iter_to = result.begin();
 
     for (; iter_from; iter_from++, iter_to++)
@@ -798,7 +798,7 @@ TypeOut MyVector<Type>::geomLength(void) const
     if (this->vector_size == 0)
         throw EmptyVectorException(__FILE__, typeid(*this).name(), __LINE__, ctime(&currentTime));
 
-    ConstIterator<Type> iterator = this->begin();
+    Iterator<Type> iterator = this->begin();
     Type sum = 0;
     for (; iterator; iterator++)
         sum += *iterator * *iterator;
@@ -814,7 +814,7 @@ double MyVector<int>::geomLength(void) const
     if (this->vector_size == 0)
         throw EmptyVectorException(__FILE__, typeid(*this).name(), __LINE__, ctime(&currentTime));
 
-    ConstIterator<int> iterator = this->begin();
+    Iterator<int> iterator = this->begin();
     int sum = 0;
     for (; iterator; iterator++)
         sum += *iterator * *iterator;
@@ -876,7 +876,7 @@ MyVector<TypeOut> MyVector<Type>::find_unit_vector() const
     Type geom_len = this->geomLength<Type>();
 
     Iterator<TypeOut> iteratorTo = result.begin();
-    ConstIterator<Type> iteratorFrom = this->begin();
+    Iterator<Type> iteratorFrom = this->begin();
     for (; iteratorFrom; iteratorFrom++, iteratorTo++)
         *iteratorTo = *iteratorFrom / geom_len;
 
@@ -892,7 +892,7 @@ MyVector<double> MyVector<int>::find_unit_vector() const
     float geom_len = this->geomLength<int>();
 
     Iterator<double> iteratorTo = result.begin();
-    ConstIterator<int> iteratorFrom = this->begin();
+    Iterator<int> iteratorFrom = this->begin();
     for (; iteratorFrom; iteratorFrom++, iteratorTo++)
         *iteratorTo = *iteratorFrom / geom_len;
 
@@ -902,7 +902,7 @@ MyVector<double> MyVector<int>::find_unit_vector() const
 template<typename Type>
 std::ostream &operator<<(std::ostream &os, const MyVector<Type> &vector)
 {
-    ConstIterator<Type> iterator = vector.begin();
+    Iterator<Type> iterator = vector.begin();
     if (!iterator)
     {
         os << "Empty Vector";

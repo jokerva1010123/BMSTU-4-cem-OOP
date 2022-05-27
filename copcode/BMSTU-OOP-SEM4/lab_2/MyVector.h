@@ -7,7 +7,7 @@
 #include <cmath>
 
 #include "Iterator.h"
-#include "ConstIterator.h"
+//#include "ConstIterator.h"
 #include "BaseVector.h"
 
 template<typename Type>
@@ -24,7 +24,7 @@ class MyVector: public BaseVector
 
     public:
         friend class Iterator<Type>; //+
-        friend class ConstIterator<Type>; //+
+      //  friend class ConstIterator<Type>; //+
 
         // Конструкторы
         MyVector(); //+
@@ -114,12 +114,12 @@ class MyVector: public BaseVector
         MyVector<Type> &operator^=(const MyVector<Type> &vector); //+
 
         // Методы для итераторов
-        ConstIterator<Type> begin() const noexcept; //+
-        ConstIterator<Type> end() const noexcept; //+
+        Iterator<Type> begin() const noexcept; //+
+        Iterator<Type> end() const noexcept; //+
         Iterator<Type> begin() noexcept; //+
         Iterator<Type> end() noexcept; //+
-        ConstIterator<Type> constBegin() const noexcept; //+
-        ConstIterator<Type> constEnd() const noexcept; //+
+        Iterator<Type> constBegin() const noexcept; //+
+        Iterator<Type> constEnd() const noexcept; //+
 
 };
 
